@@ -1,0 +1,22 @@
+version: '3.9'
+
+services:
+  fastapi:
+    build: ./app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - memcached
+    networks:
+      - internal
+
+  memcached:
+    image: memcached:latest
+    networks:
+      - internal
+    expose:
+      - "11211"
+
+networks:
+  internal:
+    driver: bridge
